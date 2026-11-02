@@ -1,7 +1,6 @@
 import type { Destination, Service, Testimonial } from "@/types";
 
-export const siteUrl =
-  process.env.NEXT_PUBLIC_SITE_URL ?? "https://wayfare.example";
+export const siteUrl = "https://wayfare-agency.vercel.app/";
 
 export const site = {
   name: "Wayfare",

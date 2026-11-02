@@ -1,7 +1,7 @@
 import type { ButtonHTMLAttributes } from "react";
 
 const base =
-  "inline-flex h-12 items-center justify-center gap-2 rounded-lg px-6 text-base font-semibold transition-colors disabled:opacity-60";
+  "inline-flex h-12 items-center justify-center gap-2 rounded-lg px-6 text-base font-semibold transition-colors disabled:opacity-60 cursor-pointer";
 
 const variants = {
   primary: "bg-brand text-white hover:bg-brand-dark",
@@ -12,7 +12,6 @@ const variants = {
 
 export type ButtonVariant = keyof typeof variants;
 
-/** Use on <a> or <Link> elements so they match <Button>. */
 export const buttonStyles = (variant: ButtonVariant = "primary", extra = "") =>
   `${base} ${variants[variant]} ${extra}`.trim();
 

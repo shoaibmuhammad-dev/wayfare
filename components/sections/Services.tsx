@@ -16,7 +16,7 @@ export default function Services() {
 
           <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-4 mt-12">
             {services.map((service) => {
-              return <ServiceCard service={service} />;
+              return <ServiceCard service={service} key={service?.id} />;
             })}
           </div>
         </Reveal>

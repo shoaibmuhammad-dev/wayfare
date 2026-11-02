@@ -44,7 +44,7 @@ export default function FlightForm({ onSearch }: FormProps) {
             role="radio"
             aria-checked={tripType === t}
             onClick={() => setTripType(t)}
-            className={`rounded-full px-4 py-1.5 text-sm font-medium transition-colors ${
+            className={`rounded-full px-4 py-1.5 text-sm font-medium transition-colors cursor-pointer ${
               tripType === t
                 ? "bg-ink text-white"
                 : "bg-surface text-ink/70 hover:text-ink"

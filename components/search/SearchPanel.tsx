@@ -49,7 +49,7 @@ export default function SearchPanel() {
               aria-selected={selected}
               aria-controls={`panel-${t.id}`}
               onClick={() => select(t.id)}
-              className={`flex flex-1 items-center justify-center gap-2 whitespace-nowrap border-b-2 px-5 py-4 text-base font-semibold transition-colors ${
+              className={`flex flex-1 items-center justify-center gap-2 whitespace-nowrap border-b-2 px-5 py-4 text-base font-semibold transition-colors cursor-pointer ${
                 selected
                   ? "border-brand text-brand"
                   : "border-transparent text-ink/60 hover:text-ink"
