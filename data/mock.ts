@@ -14,11 +14,13 @@ import { daysBetween } from "@/lib/format";
 
 const hash = (value: string) => {
   let h = 7;
-  for (let i = 0; i < value.length; i++) h = (h * 31 + value.charCodeAt(i)) >>> 0;
+  for (let i = 0; i < value.length; i++)
+    h = (h * 31 + value.charCodeAt(i)) >>> 0;
   return h;
 };
 const pad = (n: number) => String(n).padStart(2, "0");
-const clock = (minutes: number) => `${pad(Math.floor(minutes / 60) % 24)}:${pad(minutes % 60)}`;
+const clock = (minutes: number) =>
+  `${pad(Math.floor(minutes / 60) % 24)}:${pad(minutes % 60)}`;
 
 export const cities: City[] = [
   { name: "Karachi", code: "KHI", country: "Pakistan" },
@@ -37,7 +39,13 @@ export const cities: City[] = [
 
 /* ---------- Flights (generated per route, deterministic) ---------- */
 
-const airlines = ["Emirates", "Qatar Airways", "Turkish Airlines", "Etihad", "Gulf Air"];
+const airlines = [
+  "Emirates",
+  "Qatar Airways",
+  "Turkish Airlines",
+  "Etihad",
+  "Gulf Air",
+];
 
 export function searchFlights(query: {
   from: string;
@@ -55,7 +63,9 @@ export function searchFlights(query: {
       const minutes = 150 + (base % 480) + stops * 95;
       const depart = ((h % 20) + 3) * 60 + (h % 4) * 15;
       const fare = 110 + (base % 260) + (h % 90) - stops * 25;
-      const price = Math.round(fare * query.passengers * (query.tripType === "return" ? 1.85 : 1));
+      const price = Math.round(
+        fare * query.passengers * (query.tripType === "return" ? 1.85 : 1),
+      );
 
       return {
         id: `${airline}-${i}`,
@@ -84,23 +94,142 @@ interface HotelSeed {
 }
 
 const hotels: HotelSeed[] = [
-  { name: "Marina Crest Hotel", city: "Dubai", stars: 5, rating: 9.1, pricePerNight: 210, amenities: ["Pool", "Spa", "Free breakfast"] },
-  { name: "Creekside Inn", city: "Dubai", stars: 3, rating: 8.2, pricePerNight: 85, amenities: ["Wi-Fi", "Airport shuttle"] },
-  { name: "Bosphorus Terrace", city: "Istanbul", stars: 4, rating: 8.9, pricePerNight: 120, amenities: ["Sea view", "Free breakfast", "Wi-Fi"] },
-  { name: "Galata Lodge", city: "Istanbul", stars: 3, rating: 8.4, pricePerNight: 70, amenities: ["Rooftop café", "Wi-Fi"] },
-  { name: "Kensington Row", city: "London", stars: 4, rating: 8.7, pricePerNight: 240, amenities: ["Gym", "Wi-Fi", "Breakfast"] },
-  { name: "Thames Stay", city: "London", stars: 3, rating: 8.0, pricePerNight: 140, amenities: ["Wi-Fi", "Near Tube"] },
-  { name: "Sukhumvit Garden", city: "Bangkok", stars: 4, rating: 8.8, pricePerNight: 78, amenities: ["Pool", "Free breakfast"] },
-  { name: "Riverside Suites", city: "Bangkok", stars: 5, rating: 9.3, pricePerNight: 155, amenities: ["River view", "Spa", "Pool"] },
-  { name: "Petronas View", city: "Kuala Lumpur", stars: 4, rating: 8.6, pricePerNight: 92, amenities: ["Pool", "Gym", "Wi-Fi"] },
-  { name: "Coral Atoll Resort", city: "Malé", stars: 5, rating: 9.5, pricePerNight: 430, amenities: ["Private beach", "Snorkeling", "All meals"] },
-  { name: "Maafushi Guesthouse", city: "Malé", stars: 3, rating: 8.3, pricePerNight: 110, amenities: ["Beach access", "Breakfast"] },
-  { name: "Clifton Grand", city: "Karachi", stars: 5, rating: 8.9, pricePerNight: 130, amenities: ["Sea view", "Pool", "Wi-Fi"] },
-  { name: "Saddar Business Hotel", city: "Karachi", stars: 3, rating: 7.9, pricePerNight: 55, amenities: ["Wi-Fi", "Breakfast"] },
-  { name: "Gulberg Heights", city: "Lahore", stars: 4, rating: 8.5, pricePerNight: 90, amenities: ["Gym", "Wi-Fi", "Breakfast"] },
-  { name: "Left Bank Maison", city: "Paris", stars: 4, rating: 8.8, pricePerNight: 260, amenities: ["Breakfast", "Wi-Fi", "Near metro"] },
-  { name: "Old City Boutique", city: "Baku", stars: 4, rating: 8.7, pricePerNight: 95, amenities: ["Breakfast", "Wi-Fi"] },
-  { name: "Lusail Tower Hotel", city: "Doha", stars: 5, rating: 9.0, pricePerNight: 185, amenities: ["Pool", "Spa", "Wi-Fi"] },
+  {
+    name: "Marina Crest Hotel",
+    city: "Dubai",
+    stars: 5,
+    rating: 9.1,
+    pricePerNight: 210,
+    amenities: ["Pool", "Spa", "Free breakfast"],
+  },
+  {
+    name: "Creekside Inn",
+    city: "Dubai",
+    stars: 3,
+    rating: 8.2,
+    pricePerNight: 85,
+    amenities: ["Wi-Fi", "Airport shuttle"],
+  },
+  {
+    name: "Bosphorus Terrace",
+    city: "Istanbul",
+    stars: 4,
+    rating: 8.9,
+    pricePerNight: 120,
+    amenities: ["Sea view", "Free breakfast", "Wi-Fi"],
+  },
+  {
+    name: "Galata Lodge",
+    city: "Istanbul",
+    stars: 3,
+    rating: 8.4,
+    pricePerNight: 70,
+    amenities: ["Rooftop café", "Wi-Fi"],
+  },
+  {
+    name: "Kensington Row",
+    city: "London",
+    stars: 4,
+    rating: 8.7,
+    pricePerNight: 240,
+    amenities: ["Gym", "Wi-Fi", "Breakfast"],
+  },
+  {
+    name: "Thames Stay",
+    city: "London",
+    stars: 3,
+    rating: 8.0,
+    pricePerNight: 140,
+    amenities: ["Wi-Fi", "Near Tube"],
+  },
+  {
+    name: "Sukhumvit Garden",
+    city: "Bangkok",
+    stars: 4,
+    rating: 8.8,
+    pricePerNight: 78,
+    amenities: ["Pool", "Free breakfast"],
+  },
+  {
+    name: "Riverside Suites",
+    city: "Bangkok",
+    stars: 5,
+    rating: 9.3,
+    pricePerNight: 155,
+    amenities: ["River view", "Spa", "Pool"],
+  },
+  {
+    name: "Petronas View",
+    city: "Kuala Lumpur",
+    stars: 4,
+    rating: 8.6,
+    pricePerNight: 92,
+    amenities: ["Pool", "Gym", "Wi-Fi"],
+  },
+  {
+    name: "Coral Atoll Resort",
+    city: "Malé",
+    stars: 5,
+    rating: 9.5,
+    pricePerNight: 430,
+    amenities: ["Private beach", "Snorkeling", "All meals"],
+  },
+  {
+    name: "Maafushi Guesthouse",
+    city: "Malé",
+    stars: 3,
+    rating: 8.3,
+    pricePerNight: 110,
+    amenities: ["Beach access", "Breakfast"],
+  },
+  {
+    name: "Clifton Grand",
+    city: "Karachi",
+    stars: 5,
+    rating: 8.9,
+    pricePerNight: 130,
+    amenities: ["Sea view", "Pool", "Wi-Fi"],
+  },
+  {
+    name: "Saddar Business Hotel",
+    city: "Karachi",
+    stars: 3,
+    rating: 7.9,
+    pricePerNight: 55,
+    amenities: ["Wi-Fi", "Breakfast"],
+  },
+  {
+    name: "Gulberg Heights",
+    city: "Lahore",
+    stars: 4,
+    rating: 8.5,
+    pricePerNight: 90,
+    amenities: ["Gym", "Wi-Fi", "Breakfast"],
+  },
+  {
+    name: "Left Bank Maison",
+    city: "Paris",
+    stars: 4,
+    rating: 8.8,
+    pricePerNight: 260,
+    amenities: ["Breakfast", "Wi-Fi", "Near metro"],
+  },
+  {
+    name: "Old City Boutique",
+    city: "Baku",
+    stars: 4,
+    rating: 8.7,
+    pricePerNight: 95,
+    amenities: ["Breakfast", "Wi-Fi"],
+  },
+  {
+    name: "Lusail Tower Hotel",
+    city: "Doha",
+    stars: 5,
+    rating: 9.0,
+    pricePerNight: 185,
+    amenities: ["Pool", "Spa", "Wi-Fi"],
+  },
 ];
 
 export const hotelCities = Array.from(new Set(hotels.map((h) => h.city)));
@@ -135,17 +264,79 @@ interface CarSeed {
 }
 
 const cars: CarSeed[] = [
-  { name: "Toyota Yaris", category: "Economy", seats: 5, bags: 2, transmission: "Automatic", pricePerDay: 32 },
-  { name: "Suzuki Swift", category: "Economy", seats: 5, bags: 2, transmission: "Manual", pricePerDay: 26 },
-  { name: "Toyota Fortuner", category: "SUV", seats: 7, bags: 4, transmission: "Automatic", pricePerDay: 78 },
-  { name: "Kia Sportage", category: "SUV", seats: 5, bags: 3, transmission: "Automatic", pricePerDay: 58 },
-  { name: "Mercedes E-Class", category: "Luxury", seats: 5, bags: 3, transmission: "Automatic", pricePerDay: 165 },
-  { name: "BMW 5 Series", category: "Luxury", seats: 5, bags: 3, transmission: "Automatic", pricePerDay: 150 },
-  { name: "Toyota Hiace", category: "Van", seats: 12, bags: 8, transmission: "Manual", pricePerDay: 95 },
-  { name: "Hyundai Staria", category: "Van", seats: 9, bags: 5, transmission: "Automatic", pricePerDay: 110 },
+  {
+    name: "Toyota Yaris",
+    category: "Economy",
+    seats: 5,
+    bags: 2,
+    transmission: "Automatic",
+    pricePerDay: 32,
+  },
+  {
+    name: "Suzuki Swift",
+    category: "Economy",
+    seats: 5,
+    bags: 2,
+    transmission: "Manual",
+    pricePerDay: 26,
+  },
+  {
+    name: "Toyota Fortuner",
+    category: "SUV",
+    seats: 7,
+    bags: 4,
+    transmission: "Automatic",
+    pricePerDay: 78,
+  },
+  {
+    name: "Kia Sportage",
+    category: "SUV",
+    seats: 5,
+    bags: 3,
+    transmission: "Automatic",
+    pricePerDay: 58,
+  },
+  {
+    name: "Mercedes E-Class",
+    category: "Luxury",
+    seats: 5,
+    bags: 3,
+    transmission: "Automatic",
+    pricePerDay: 165,
+  },
+  {
+    name: "BMW 5 Series",
+    category: "Luxury",
+    seats: 5,
+    bags: 3,
+    transmission: "Automatic",
+    pricePerDay: 150,
+  },
+  {
+    name: "Toyota Hiace",
+    category: "Van",
+    seats: 12,
+    bags: 8,
+    transmission: "Manual",
+    pricePerDay: 95,
+  },
+  {
+    name: "Hyundai Staria",
+    category: "Van",
+    seats: 9,
+    bags: 5,
+    transmission: "Automatic",
+    pricePerDay: 110,
+  },
 ];
 
-export const carCategories: Array<CarCategory | "Any"> = ["Any", "Economy", "SUV", "Luxury", "Van"];
+export const carCategories: Array<CarCategory | "Any"> = [
+  "Any",
+  "Economy",
+  "SUV",
+  "Luxury",
+  "Van",
+];
 
 export function searchCars(query: {
   city: string;
@@ -160,7 +351,13 @@ export function searchCars(query: {
     .filter((c) => query.category === "Any" || c.category === query.category)
     .map((c, i) => {
       const pricePerDay = Math.round(c.pricePerDay * cityFactor);
-      return { id: `${c.name}-${i}`, ...c, pricePerDay, days, total: pricePerDay * days };
+      return {
+        id: `${c.name}-${i}`,
+        ...c,
+        pricePerDay,
+        days,
+        total: pricePerDay * days,
+      };
     })
     .sort((a, b) => a.pricePerDay - b.pricePerDay);
 }
@@ -188,25 +385,71 @@ const baseDocs = [
 ];
 
 export const visaCountries: VisaCountry[] = [
-  { country: "United Arab Emirates", tourist: { fee: 95, processing: "3 to 5 days", stay: "30 days" }, business: { fee: 140, processing: "5 to 7 days", stay: "90 days" }, documents: [...baseDocs, "Hotel booking"] },
-  { country: "Türkiye", tourist: { fee: 60, processing: "2 to 4 days", stay: "30 days" }, business: { fee: 90, processing: "4 to 6 days", stay: "60 days" }, documents: [...baseDocs, "Hotel booking"] },
-  { country: "Thailand", tourist: { fee: 55, processing: "5 to 7 days", stay: "60 days" }, business: { fee: 120, processing: "7 to 10 days", stay: "90 days" }, documents: [...baseDocs, "Hotel booking", "Proof of funds"] },
-  { country: "Malaysia", tourist: { fee: 40, processing: "3 to 5 days", stay: "30 days" }, business: { fee: 85, processing: "5 to 7 days", stay: "60 days" }, documents: [...baseDocs, "Hotel booking"] },
-  { country: "United Kingdom", tourist: { fee: 160, processing: "15 to 21 days", stay: "6 months" }, business: { fee: 160, processing: "15 to 21 days", stay: "6 months" }, documents: [...baseDocs, "Travel history", "Employment letter"] },
-  { country: "Schengen (France)", tourist: { fee: 100, processing: "15 to 30 days", stay: "90 days" }, business: { fee: 100, processing: "15 to 30 days", stay: "90 days" }, documents: [...baseDocs, "Travel insurance", "Hotel booking"] },
-  { country: "Azerbaijan", tourist: { fee: 35, processing: "3 to 4 days", stay: "30 days" }, business: { fee: 60, processing: "4 to 6 days", stay: "30 days" }, documents: [...baseDocs, "Hotel booking"] },
-  { country: "Qatar", tourist: { fee: 50, processing: "3 to 5 days", stay: "30 days" }, business: { fee: 95, processing: "5 to 7 days", stay: "30 days" }, documents: [...baseDocs, "Hotel booking"] },
+  {
+    country: "United Arab Emirates",
+    tourist: { fee: 95, processing: "3 to 5 days", stay: "30 days" },
+    business: { fee: 140, processing: "5 to 7 days", stay: "90 days" },
+    documents: [...baseDocs, "Hotel booking"],
+  },
+  {
+    country: "Türkiye",
+    tourist: { fee: 60, processing: "2 to 4 days", stay: "30 days" },
+    business: { fee: 90, processing: "4 to 6 days", stay: "60 days" },
+    documents: [...baseDocs, "Hotel booking"],
+  },
+  {
+    country: "Thailand",
+    tourist: { fee: 55, processing: "5 to 7 days", stay: "60 days" },
+    business: { fee: 120, processing: "7 to 10 days", stay: "90 days" },
+    documents: [...baseDocs, "Hotel booking", "Proof of funds"],
+  },
+  {
+    country: "Malaysia",
+    tourist: { fee: 40, processing: "3 to 5 days", stay: "30 days" },
+    business: { fee: 85, processing: "5 to 7 days", stay: "60 days" },
+    documents: [...baseDocs, "Hotel booking"],
+  },
+  {
+    country: "United Kingdom",
+    tourist: { fee: 160, processing: "15 to 21 days", stay: "6 months" },
+    business: { fee: 160, processing: "15 to 21 days", stay: "6 months" },
+    documents: [...baseDocs, "Travel history", "Employment letter"],
+  },
+  {
+    country: "Schengen (France)",
+    tourist: { fee: 100, processing: "15 to 30 days", stay: "90 days" },
+    business: { fee: 100, processing: "15 to 30 days", stay: "90 days" },
+    documents: [...baseDocs, "Travel insurance", "Hotel booking"],
+  },
+  {
+    country: "Azerbaijan",
+    tourist: { fee: 35, processing: "3 to 4 days", stay: "30 days" },
+    business: { fee: 60, processing: "4 to 6 days", stay: "30 days" },
+    documents: [...baseDocs, "Hotel booking"],
+  },
+  {
+    country: "Qatar",
+    tourist: { fee: 50, processing: "3 to 5 days", stay: "30 days" },
+    business: { fee: 95, processing: "5 to 7 days", stay: "30 days" },
+    documents: [...baseDocs, "Hotel booking"],
+  },
 ];
 
 const AGENCY_FEE = 20;
 
-export function searchVisa(query: { country: string; type: VisaType; travelers: number }): VisaResult[] {
+export function searchVisa(query: {
+  country: string;
+  type: VisaType;
+  travelers: number;
+}): VisaResult[] {
   const entry = visaCountries.find((v) => v.country === query.country);
   if (!entry) return [];
 
   const rule = query.type === "Tourist" ? entry.tourist : entry.business;
   const documents =
-    query.type === "Business" ? [...entry.documents, "Invitation letter from host company"] : entry.documents;
+    query.type === "Business"
+      ? [...entry.documents, "Invitation letter from host company"]
+      : entry.documents;
 
   return [
     {
