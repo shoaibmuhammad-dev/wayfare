@@ -87,7 +87,7 @@ Search logic is in `data/mock.ts`: flights are generated per route, hotels and c
 
 ## Notes
 
-- The contact form validates input and simulates sending; connect it to an API route or email service.
-- Deployed on Vercel: no environment variables are required (except the optional site URL).
+- The contact form validates input and simulates sending.
+- Deployed on Vercel: no environment variables are required.
 
 # wayfare
